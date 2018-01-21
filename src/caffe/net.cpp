@@ -769,11 +769,7 @@ void Net<Dtype>::CopyTrainedLayersFrom(const NetParameter& param) {
 
 template <typename Dtype>
 void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
-  if (H5Fis_hdf5(trained_filename.c_str())) {
-    CopyTrainedLayersFromHDF5(trained_filename);
-  } else {
-    CopyTrainedLayersFromBinaryProto(trained_filename);
-  }
+  CopyTrainedLayersFromBinaryProto(trained_filename);
 }
 
 template <typename Dtype>
@@ -784,6 +780,7 @@ void Net<Dtype>::CopyTrainedLayersFromBinaryProto(
   CopyTrainedLayersFrom(param);
 }
 
+  #if 0
 template <typename Dtype>
 void Net<Dtype>::CopyTrainedLayersFromHDF5(const string trained_filename) {
   hid_t file_hid = H5Fopen(trained_filename.c_str(), H5F_ACC_RDONLY,
@@ -833,6 +830,7 @@ void Net<Dtype>::CopyTrainedLayersFromHDF5(const string trained_filename) {
   H5Gclose(data_hid);
   H5Fclose(file_hid);
 }
+  #endif
 
 template <typename Dtype>
 void Net<Dtype>::ToProto(NetParameter* param, bool write_diff) const {
@@ -846,6 +844,7 @@ void Net<Dtype>::ToProto(NetParameter* param, bool write_diff) const {
   }
 }
 
+#if 0
 template <typename Dtype>
 void Net<Dtype>::ToHDF5(const string& filename, bool write_diff) const {
   hid_t file_hid = H5Fcreate(filename.c_str(), H5F_ACC_TRUNC, H5P_DEFAULT,
@@ -902,6 +901,7 @@ void Net<Dtype>::ToHDF5(const string& filename, bool write_diff) const {
   }
   H5Fclose(file_hid);
 }
+#endif
 
 template <typename Dtype>
 void Net<Dtype>::Update() {
