@@ -452,9 +452,9 @@ endif
 	py mat py$(PROJECT) mat$(PROJECT) proto runtest \
 	superclean supercleanlist supercleanfiles warn everything
 
-all: lib tools examples
+all: lib
 
-lib: $(STATIC_NAME) $(DYNAMIC_NAME)
+lib: $(STATIC_NAME)
 
 everything: $(EVERYTHING_TARGETS)
 
@@ -686,12 +686,7 @@ $(DISTRIBUTE_DIR): all | $(DISTRIBUTE_SUBDIRS)
 	cp -r include $(DISTRIBUTE_DIR)/
 	mkdir -p $(DISTRIBUTE_DIR)/include/caffe/proto
 	cp $(PROTO_GEN_HEADER_SRCS) $(DISTRIBUTE_DIR)/include/caffe/proto
-	# add tool and example binaries
-	cp $(TOOL_BINS) $(DISTRIBUTE_DIR)/bin
-	cp $(EXAMPLE_BINS) $(DISTRIBUTE_DIR)/bin
 	# add libraries
 	cp $(STATIC_NAME) $(DISTRIBUTE_DIR)/lib
-	install -m 644 $(DYNAMIC_NAME) $(DISTRIBUTE_DIR)/lib
-	cd $(DISTRIBUTE_DIR)/lib; rm -f $(DYNAMIC_NAME_SHORT);   ln -s $(DYNAMIC_VERSIONED_NAME_SHORT) $(DYNAMIC_NAME_SHORT)
 
 -include $(DEPS)
