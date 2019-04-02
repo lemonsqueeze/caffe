@@ -16,6 +16,7 @@
 #include "caffe/layers/tanh_layer.hpp"
 #include "caffe/layers/input_layer.hpp"
 #include "caffe/layers/flatten_layer.hpp"
+#include "caffe/layers/reshape_layer.hpp"
 #include "caffe/proto/caffe.pb.h"
 
 #ifdef USE_CUDNN
@@ -125,7 +126,7 @@ shared_ptr<Layer<Dtype> > GetSoftmaxLayer(const LayerParameter& param) {
 
 REGISTER_LAYER_CREATOR(Softmax, GetSoftmaxLayer);
 
-  // input layer
+// Input layer
 template <typename Dtype>
 shared_ptr<Layer<Dtype> > GetInputLayer(const LayerParameter& param) {
     return shared_ptr<Layer<Dtype> >(new InputLayer<Dtype>(param));
@@ -133,13 +134,21 @@ shared_ptr<Layer<Dtype> > GetInputLayer(const LayerParameter& param) {
 
 REGISTER_LAYER_CREATOR(Input, GetInputLayer);
   
-    // flatten layer
+// Flatten layer
 template <typename Dtype>
 shared_ptr<Layer<Dtype> > GetFlattenLayer(const LayerParameter& param) {
     return shared_ptr<Layer<Dtype> >(new FlattenLayer<Dtype>(param));
 }
 
 REGISTER_LAYER_CREATOR(Flatten, GetFlattenLayer);
+	
+// Reshape layer
+template <typename Dtype>
+shared_ptr<Layer<Dtype> > GetReshapeLayer(const LayerParameter& param) {
+    return shared_ptr<Layer<Dtype> >(new ReshapeLayer<Dtype>(param));
+}
+
+REGISTER_LAYER_CREATOR(Reshape, GetReshapeLayer);
 
 
 // Layers that use their constructor as their default creator should be
