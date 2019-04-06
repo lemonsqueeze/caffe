@@ -17,6 +17,7 @@
 #include "caffe/layers/input_layer.hpp"
 #include "caffe/layers/flatten_layer.hpp"
 #include "caffe/layers/reshape_layer.hpp"
+#include "caffe/layers/inner_product_layer.hpp"
 #include "caffe/proto/caffe.pb.h"
 
 #ifdef USE_CUDNN
@@ -149,6 +150,14 @@ shared_ptr<Layer<Dtype> > GetReshapeLayer(const LayerParameter& param) {
 }
 
 REGISTER_LAYER_CREATOR(Reshape, GetReshapeLayer);
+
+// InnerProduct layer
+template <typename Dtype>
+shared_ptr<Layer<Dtype> > GetInnerProductLayer(const LayerParameter& param) {
+    return shared_ptr<Layer<Dtype> >(new InnerProductLayer<Dtype>(param));
+}
+
+REGISTER_LAYER_CREATOR(InnerProduct, GetInnerProductLayer);
 
 
 // Layers that use their constructor as their default creator should be
