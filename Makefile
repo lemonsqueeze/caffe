@@ -679,7 +679,7 @@ superclean: clean supercleanfiles
 
 $(DIST_ALIASES): $(DISTRIBUTE_DIR)
 
-$(DISTRIBUTE_DIR): all py | $(DISTRIBUTE_SUBDIRS)
+$(DISTRIBUTE_DIR): all | $(DISTRIBUTE_SUBDIRS)
 	# add proto
 	cp -r src/caffe/proto $(DISTRIBUTE_DIR)/
 	# add include
@@ -693,7 +693,5 @@ $(DISTRIBUTE_DIR): all py | $(DISTRIBUTE_SUBDIRS)
 	cp $(STATIC_NAME) $(DISTRIBUTE_DIR)/lib
 	install -m 644 $(DYNAMIC_NAME) $(DISTRIBUTE_DIR)/lib
 	cd $(DISTRIBUTE_DIR)/lib; rm -f $(DYNAMIC_NAME_SHORT);   ln -s $(DYNAMIC_VERSIONED_NAME_SHORT) $(DYNAMIC_NAME_SHORT)
-	# add python - it's not the standard way, indeed...
-	cp -r python $(DISTRIBUTE_DIR)/
 
 -include $(DEPS)
